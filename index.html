@@ -15,7 +15,7 @@
         var index = streams.home.length - 1;
         while(index >= 0){
           var tweet = streams.home[index];
-          var $tweet = $('<section class = "tweet"></section>')
+          var $tweet = $('<section class = "tweet ' + tweet.user + '"></section>')
           var $user = $('<div class = "user"><a href = "#"></a></div>');
           var $timestamp = $('<span class = "timestamp"></span>');
           var $message = $('<div class = "message"></div>');
@@ -31,6 +31,16 @@
           $tweet.appendTo($body);
           index -= 1;
         }
+        
+        $('.user').on('click',function() {
+          var $selectedUser = $(this).closest('.tweet').attr('class').split(' ')[1];
+          $('body').find('.tweet').filter(function(index,element) {
+            return !$(element).hasClass($selectedUser);
+          }).remove();
+          
+        })
+        //on click on the name, removes tweets that don't have
+        //that users name $(this).parent().attr('class').split(' ')[1];
 
       });
 
