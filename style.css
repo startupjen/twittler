@@ -1,0 +1,26 @@
+body {
+    background-color: #e6ecf0;
+}
+
+.tweet {
+    border-style: outset;
+    background-color: white;
+    width: 450px;
+    margin-bottom: 7px;
+    padding: 5px 5px 5px 5px;
+    border-radius: 10px;
+    margin: auto;
+}
+
+.user {
+    float: left;
+}
+
+.timestamp {
+    float: right;
+}
+
+.message {
+    clear: left;
+    margin-top: 10px;
+}
