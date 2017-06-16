@@ -12,36 +12,45 @@
         var $body = $('body');
         $body.html();
 
-        var index = streams.home.length - 1;
-        while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $('<section class = "tweet ' + tweet.user + '"></section>')
-          var $user = $('<div class = "user"><a href = "#"></a></div>');
-          var $timestamp = $('<span class = "timestamp"></span>');
-          var $message = $('<div class = "message"></div>');
+        var showAllTweets = '<div id="showAllTweets"><button type="button">Refresh Tweets!</button></div>';
+        $(showAllTweets).prependTo($body);
+        generateStreams();
+        //$('#showAllTweets').hide();
 
-          $user.html('<a href="#">@' + tweet.user + '</a>');
-          $timestamp.text(tweet.created_at.toString().slice(0,21) + ' PST');
-          $message.text(tweet.message);
-
-          $user.appendTo($tweet);
-          $timestamp.appendTo($tweet);
-          $message.appendTo($tweet);
-          
-          $tweet.appendTo($body);
-          index -= 1;
+        function generateStreams() {
+          var index = streams.home.length - 1;
+          while(index >= 0){
+            var tweet = streams.home[index];
+            var $tweet = $('<section class = "tweet ' + tweet.user + '"></section>')
+            var $user = $('<div class = "user"><a href = "#"></a></div>');
+            var $timestamp = $('<span class = "timestamp"></span>');
+            var $message = $('<div class = "message"></div>');
+  
+            $user.html('<a href="#">@' + tweet.user + '</a>');
+            $timestamp.text(tweet.created_at.toString().slice(0,21) + ' PST');
+            $message.text(tweet.message);
+  
+            $user.appendTo($tweet);
+            $timestamp.appendTo($tweet);
+            $message.appendTo($tweet);
+            
+            $tweet.appendTo($body);
+            index -= 1;
+          }
         }
-        
-        $('.user').on('click',function() {
+
+        $(this).on('click','.user',function() {
           var $selectedUser = $(this).closest('.tweet').attr('class').split(' ')[1];
-          $('body').find('.tweet').filter(function(index,element) {
+          $body.find('.tweet').filter(function(index,element) {
             return !$(element).hasClass($selectedUser);
           }).remove();
-          
-        })
-        //on click on the name, removes tweets that don't have
-        //that users name $(this).parent().attr('class').split(' ')[1];
-
+        });
+        
+        $('#showAllTweets').on('click', function(event) {
+          //event.preventDefault();
+          $body.find('.tweet').remove();
+          generateStreams();
+        });
       });
 
     </script>

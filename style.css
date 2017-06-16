@@ -2,6 +2,12 @@ body {
     background-color: #e6ecf0;
 }
 
+#showAllTweets {
+    width: 116px;
+    margin: auto;
+    margin-bottom: 7px;
+}
+
 .tweet {
     border-style: outset;
     background-color: white;
